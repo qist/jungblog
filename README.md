@@ -53,11 +53,22 @@ DATABASES = {
     }
 }
 ```
+### 创建连接数据库账号
+
+```
+mysql -uroot -p #进入mysql终端
+CREATE USER 'jungblog'@'localhost' IDENTIFIED BY 'JuNgBlOg123!@#';
+FLUSH PRIVILEGES;
+exit #退出
+```
 
 ### 创建数据库
 mysql数据库中执行:
 ```sql
 CREATE DATABASE `jungblog` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
+GRANT all ON jungblog.* TO 'jungblog'@'localhost';
+FLUSH PRIVILEGES;
+exit #退出
 ```
 
 然后终端下执行:
