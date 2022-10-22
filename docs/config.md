@@ -19,7 +19,7 @@ owntracks是一个位置追踪软件，可以定时的将你的坐标提交到�
 `你的域名/owntracks/logtracks`就可以了。然后访问`你的域名/owntracks/show_dates`就可以看到有经纬度记录的日期，点击之后就可以看到运动轨迹了。地图是使用高德地图绘制。
 
 ## 邮件功能：
-同样，将`settings.py`中的`ADMINS = [('liangliang', 'juestnow@gmail.com')]`配置为你自己的错误接收邮箱，另外修改:
+同样，将`settings.py`中的`ADMINS = [('qist', 'juestnow@gmail.com')]`配置为你自己的错误接收邮箱，另外修改:
 ```python
 EMAIL_HOST = 'smtp.zoho.com'
 EMAIL_PORT = 587

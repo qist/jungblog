@@ -52,7 +52,7 @@ mysql客户端从`pymysql`修改成了`mysqlclient`，具体请参考 [pypi](htt
 
 ## 运行
 
- 修改`jungblog/setting.py` 修改数据库配置，如下所示：
+ 修改`jungblog/settings.py` 修改数据库配置，如下所示：
 
 ```python
 DATABASES = {
