@@ -1,7 +1,7 @@
 # jungblog
 
 🌍
-*[English](/docs/README-en.md) ∙ [简体中文](README.md)*
+* [简体中文](README.md)*
 
 基于`python3.8`和`Django4.0`的博客。   
 
@@ -69,6 +69,12 @@ CREATE DATABASE `jungblog` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb
 GRANT all ON jungblog.* TO 'jungblog'@'localhost';
 FLUSH PRIVILEGES;
 exit #退出
+```
+
+# python env 环境初始化
+
+```
+python3 -m venv /apps/python/jungblog_env
 ```
 
 然后终端下执行:
