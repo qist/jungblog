@@ -18,8 +18,20 @@
 - 网站异常邮件提醒，若有未捕捉到的异常会自动发送提醒邮件。
 - 集成了微信公众号功能，现在可以使用微信公众号来管理你的vps了。
 
-
 ## 安装
+
+## python env 环境初始化
+
+```
+python3 -m venv /apps/python/jungblog_env
+# 进入虚拟环境
+source /apps/python/jungblog_env/bin/activate
+```
+## 拉取代码
+
+```
+git clone https://github.com/qist/jungblog.git
+```
 mysql客户端从`pymysql`修改成了`mysqlclient`，具体请参考 [pypi](https://pypi.org/project/mysqlclient/) 查看安装前的准备。
 
 使用pip安装： `pip install -Ur requirements.txt`
@@ -35,6 +47,7 @@ mysql客户端从`pymysql`修改成了`mysqlclient`，具体请参考 [pypi](htt
 - Windows电脑：
 
     下载 http://peak.telecommunity.com/dist/ez_setup.py 和 https://raw.github.com/pypa/pip/master/contrib/get-pip.py 这两个文件，双击运行。 
+
 
 
 ## 运行
@@ -69,12 +82,6 @@ CREATE DATABASE `jungblog` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb
 GRANT all ON jungblog.* TO 'jungblog'@'localhost';
 FLUSH PRIVILEGES;
 exit #退出
-```
-
-# python env 环境初始化
-
-```
-python3 -m venv /apps/python/jungblog_env
 ```
 
 然后终端下执行:

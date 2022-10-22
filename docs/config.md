@@ -2,7 +2,7 @@
 
 ## 缓存：
 缓存默认使用`localmem`缓存，如果你有`redis`环境，可以设置`DJANGO_REDIS_URL`环境变量，则会自动使用该redis来作为缓存，或者你也可以直接修改如下代码来使用。
-https://github.com/juestnow/jungblog/blob/ffcb2c3711de805f2067dd3c1c57449cd24d84ee/jungblog/settings.py#L185-L199
+https://github.com/qist/jungblog/blob/ffcb2c3711de805f2067dd3c1c57449cd24d84ee/jungblog/settings.py#L185-L199
 
 
 ## oauth登录:
@@ -54,5 +54,5 @@ django.db.migrations.exceptions.MigrationSchemaMissing: Unable to create the dja
 
 django 4.0登录可能会报错CSRF，需要配置下`settings.py`中的`CSRF_TRUSTED_ORIGINS`
 
-https://github.com/juestnow/jungblog/blob/master/jungblog/settings.py#L39
+https://github.com/qist/jungblog/blob/master/jungblog/settings.py#L39
 
