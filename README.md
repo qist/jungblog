@@ -3,7 +3,7 @@
 🌍
 * [简体中文](README.md)*
 
-基于`python3.8`和`Django4.0`的博客。   
+基于`CentOS7, python3.8`和`Django4.0`的博客。   
 
 ## 主要功能：
 - 文章，页面，分类目录，标签的添加，删除，编辑等。文章、评论及页面支持`Markdown`，支持代码高亮。
@@ -19,19 +19,81 @@
 - 集成了微信公众号功能，现在可以使用微信公众号来管理你的vps了。
 
 ## 安装
+## mysql 安装
+
+```bash
+
+## mysql 源配置
+cat > /etc/yum.repos.d/mysql-community.repo <<EOF
+[mysql-connectors-community]
+name=MySQL Connectors Community
+baseurl=http://repo.mysql.com/yum/mysql-connectors-community/el/7/\$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
+[mysql-tools-community]
+name=MySQL Tools Community
+baseurl=http://repo.mysql.com/yum/mysql-tools-community/el/7/\$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
+[mysql57-community]
+name=MySQL 5.7 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/7/\$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
+EOF
+## 安装 mysql
+ yum install mysql mysql-server mysql-devel
+##配置MYSQL 配置
+/etc/my.cnf
+[mysqld]
+character-set-server=utf8mb4
+collation-server=utf8mb4_unicode_ci
+ [client]
+ default-character-set = utf8mb4
+ [mysql]
+ default-character-set = utf8mb4
+# 启动mysql 
+systemctl enable mysqld --now
+
+```
+
+## 编译python
+
+```bash 
+## 安装编译环境
+yum install -y epel-release
+yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make libffi-devel
+## 下载python 源码
+wget https://www.python.org/ftp/python/3.8.13/Python-3.8.13.tgz
+## 解压源码
+tar -xvf Python-3.8.13.tgz
+## 编译python
+cd Python-3.8.13
+mkdir -p /usr/local/python3
+./configure --prefix=/usr/local/python3
+make -j4
+make install
+ln -sf /usr/local/python3/bin/python3 /usr/bin/python3
+ln -sf /usr/local/python3/bin/pip3 /usr/bin/pip3
+```
 
 ## python env 环境初始化
 
-```
+```bash
 python3 -m venv /apps/python/jungblog_env
 # 进入虚拟环境
 source /apps/python/jungblog_env/bin/activate
 ```
+
 ## 拉取代码
 
-```
+```bash
 git clone https://github.com/qist/jungblog.git
 ```
+
 mysql客户端从`pymysql`修改成了`mysqlclient`，具体请参考 [pypi](https://pypi.org/project/mysqlclient/) 查看安装前的准备。
 
 使用pip安装： `pip install -Ur requirements.txt`
@@ -39,7 +101,7 @@ mysql客户端从`pymysql`修改成了`mysqlclient`，具体请参考 [pypi](htt
 如果你没有pip，使用如下方式安装：
 - OS X / Linux 电脑，终端下执行: 
 
-    ```
+    ```bash
     curl http://peak.telecommunity.com/dist/ez_setup.py | python
     curl https://bootstrap.pypa.io/get-pip.py | python
     ```
@@ -66,9 +128,28 @@ DATABASES = {
     }
 }
 ```
+
+修改`jungblog/settings.py` 修改启动模式默认DEBUG，如下所示：
+
+```python
+DEBUG = env_to_bool('DJANGO_DEBUG', True)
+# DEBUG = False
+```
+
+修改`jungblog/settings.py` https跨域设置，如下所示：
+
+```python
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', '127.0.0.1', 'example.com', 'www.tycng.com']
+# django 4.0新增配置
+CSRF_TRUSTED_ORIGINS = ['http://example.com', 'https://www.tycng.com', 'http://www.tycng.com']
+# Application definition
+```
+
 ### 创建连接数据库账号
 
-```
+```bash
+
 mysql -uroot -p #进入mysql终端
 CREATE USER 'jungblog'@'localhost' IDENTIFIED BY 'JuNgBlOg123!@#';
 FLUSH PRIVILEGES;
@@ -76,7 +157,9 @@ exit;
 ```
 
 ### 创建数据库
+
 mysql数据库中执行:
+
 ```sql
 CREATE DATABASE `jungblog` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
 GRANT all ON jungblog.* TO 'jungblog'@'localhost';
@@ -85,7 +168,9 @@ exit;
 ```
 
 然后终端下执行:
+
 ```bash
+
 python manage.py makemigrations
 python manage.py migrate
 ```
@@ -93,24 +178,30 @@ python manage.py migrate
 ### 创建超级用户
 
  终端下执行:
+
 ```bash
 python manage.py createsuperuser
 ```
 
 ### 创建测试数据
+
 终端下执行:
+
 ```bash
 python manage.py create_testdata
 ```
 
 ### 收集静态文件
-终端下执行:  
+
+终端下执行:
+  
 ```bash
 python manage.py collectstatic --noinput
 python manage.py compress --force
 ```
 
 ### 开始运行：
+
 执行： `python manage.py runserver`
 
 
