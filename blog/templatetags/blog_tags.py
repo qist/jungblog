@@ -295,7 +295,7 @@ def gravatar_url(email, size=40):
                 return o[0].picture
         email = email.encode('utf-8')
 
-        default = "https://resource.tycng.com/image/2017/03/26/120117.jpg".encode(
+        default = "https://www.tycng.com/image/2022/10/26/120117.jpg".encode(
             'utf-8')
 
         url = "https://www.gravatar.com/avatar/%s?%s" % (hashlib.md5(

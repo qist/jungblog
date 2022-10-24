@@ -39,7 +39,7 @@ SERVER_EMAIL = os.environ.get('DJANGO_EMAIL_USER')
 ## 代码高亮
 如果你发现你文章的代码没有高亮，请这样书写代码块:  
 
-![](https://resource.tycng.com/image/codelang.png)  
+![](https://www.tycng.com/image/codelang.png)  
 
 
 也就是说，需要在代码块开始位置加入这段代码对应的语言。
