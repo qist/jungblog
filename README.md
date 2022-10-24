@@ -202,7 +202,7 @@ python manage.py compress --force
 
 ### 开始运行：
 
-执行： `python manage.py runserver`
+执行： `python manage.py runserver` 或 `python manage.py runserver 0.0.0.0:80`
 
 
 浏览器打开: http://127.0.0.1:8000/  就可以看到效果了。  
