@@ -216,7 +216,7 @@ SERVER_EMAIL = EMAIL_HOST_USER
 ADMINS = [('admin', os.environ.get('DJANGO_ADMIN_EMAIL') or 'admin@admin.com')]
 # WX ADMIN password(Two times md5)
 WXADMIN = os.environ.get(
-    'DJANGO_WXADMIN_PASSWORD') or '995F03AC401D6CABABAEF756FC4D43C7'
+    'DJANGO_WXADMIN_PASSWORD') or '21232F297A57A5A743894A0E4A801FC3' 
 
 LOG_PATH = os.path.join(BASE_DIR, 'logs')
 if not os.path.exists(LOG_PATH):
