@@ -199,17 +199,63 @@ python manage.py collectstatic --noinput
 python manage.py compress --force
 ```
 
-### 开始运行：
+### 开始运行:
 
 执行： `python manage.py runserver` 或 `python manage.py runserver 0.0.0.0:80`
 
 
 浏览器打开: http://127.0.0.1:8000/  就可以看到效果了。  
 
-## 服务器部署
+### nginx 配置
 
-本地安装部署请参考 [jungblog部署教程](https://www.tycng.com/article/2019/8/5/58.html)
-有详细的部署介绍.    
+```nginx
+upstream jungblog {
+        least_conn;
+        server 127.0.0.1:8000 max_fails=3 fail_timeout=30s;
+        keepalive 1000;
+}
+
+server {
+    listen 80;
+    server_name www.test.com;
+    root /apps/python/jungblog_env/jungblog/;
+    index index.html index.htm;
+    #error_page 404 502 500 =200 /index.html;
+    #error_log /var/log/nginx/www_error.log debug;
+    #lua_need_request_body off;
+     ignore_invalid_headers         off;
+    location /static/ {
+        alias /apps/python/jungblog_env/jungblog/collectedstatic/;
+        expires max;
+        access_log        off;
+        log_not_found     off;
+    }
+    location /media {
+        # 静态文件配置
+        alias /apps/python/jungblog_env/jungblog/uploads/;
+        expires max;
+    }
+    location ~ \.py$ {
+        return 403;
+    }
+    location / {
+        root /apps/python/jungblog_env/jungblog/;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_redirect off;
+        proxy_http_version 1.1;
+        proxy_set_header Accept-Encoding "";
+        #if (!-f $request_filename) {
+            proxy_pass http://jungblog;
+         #   break;
+       # }
+    }
+}
+```
+
+## 服务器部署
 
 本项目已经支持使用docker来部署，如果你有docker环境那么可以使用docker来部署，具体请参考:[docker部署](/docs/docker.md)
 
