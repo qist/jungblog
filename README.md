@@ -166,6 +166,13 @@ FLUSH PRIVILEGES;
 exit;
 ```
 
+### 导入时区数据
+
+```bash
+# 解决USE_TZ = True 
+mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -uadmin -ppassword mysql
+```
+
 然后终端下执行:
 
 ```bash
